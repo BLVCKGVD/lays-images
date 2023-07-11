@@ -39,9 +39,10 @@ class ImageController extends AbstractController
             $image->setName($newFilename);
             $manager->persist($image);
             $manager->flush();
+            $siteURL='http'.(empty($_SERVER['HTTPS'])?'':'s').'://'.$_SERVER['HTTP_HOST'];
             return $this->json([
                 'message' => 'Image uploaded',
-                'imgUrl' => "{$_SERVER['HTTP_HOST']}{$this->getParameter('public_uploads_directory')}/$newFilename",
+                'imgUrl' => "$siteURL{$this->getParameter('public_uploads_directory')}/$newFilename",
                 'success' => true,
             ]);
         }
